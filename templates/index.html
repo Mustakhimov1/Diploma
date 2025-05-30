@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты ASR</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        audio { width: 250px; }
+        button { padding: 8px 12px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h1>🔊 Результаты обработки аудио</h1>
+
+    <button onclick="runProcessor()">▶ Обработать аудио</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Устройство</th>
+                <th>Время</th>
+                <th>Текст</th>
+                <th>Искажённое аудио</th>
+                <th>Нормализованное аудио</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in results %}
+            <tr>
+                <td>{{ row.id }}</td>
+                <td>{{ row.device }}</td>
+                <td>{{ row.time }}</td>
+                <td>{{ row.text }}</td>
+                <td>
+                    <audio controls>
+                        <source src="/audio/distorted/{{ row.id }}.wav" type="audio/wav">
+                        Аудио не поддерживается
+                    </audio>
+                </td>
+                <td>
+                    <audio controls>
+                        <source src="/audio/normalized/{{ row.id }}.wav" type="audio/wav">
+                        Аудио не поддерживается
+                    </audio>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+    function runProcessor() {
+        fetch('/run_processor', { method: 'POST' })
+            .then(res => res.json())
+            .then(data => {
+                alert("Обработка запущена. Обновите страницу через 3-5 секунд.");
+            })
+            .catch(err => alert("Ошибка запуска обработки: " + err));
+    }
+    </script>
+</body>
+</html>
