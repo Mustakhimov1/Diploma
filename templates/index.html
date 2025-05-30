@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Результаты ASR</title>
+    <title>ASR Results</title>
     <style>
         body { font-family: sans-serif; padding: 20px; }
         table { border-collapse: collapse; width: 100%; }
@@ -12,19 +12,19 @@
     </style>
 </head>
 <body>
-    <h1>🔊 Результаты обработки аудио</h1>
+    <h1>🔊 Audio Processing Results</h1>
 
-    <button onclick="runProcessor()">▶ Обработать аудио</button>
+    <button onclick="runProcessor()">▶ Process Audio</button>
 
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Устройство</th>
-                <th>Время</th>
-                <th>Текст</th>
-                <th>Искажённое аудио</th>
-                <th>Нормализованное аудио</th>
+                <th>Device</th>
+                <th>Time</th>
+                <th>Text</th>
+                <th>Distorted Audio</th>
+                <th>Normalized Audio</th>
             </tr>
         </thead>
         <tbody>
@@ -37,13 +37,13 @@
                 <td>
                     <audio controls>
                         <source src="/audio/distorted/{{ row.id }}.wav" type="audio/wav">
-                        Аудио не поддерживается
+                        Audio not supported
                     </audio>
                 </td>
                 <td>
                     <audio controls>
                         <source src="/audio/normalized/{{ row.id }}.wav" type="audio/wav">
-                        Аудио не поддерживается
+                        Audio not supported
                     </audio>
                 </td>
             </tr>
@@ -56,9 +56,9 @@
         fetch('/run_processor', { method: 'POST' })
             .then(res => res.json())
             .then(data => {
-                alert("Обработка запущена. Обновите страницу через 3-5 секунд.");
+                alert("Processing started. Refresh the page in 3–5 seconds.");
             })
-            .catch(err => alert("Ошибка запуска обработки: " + err));
+            .catch(err => alert("Failed to start processing: " + err));
     }
     </script>
 </body>

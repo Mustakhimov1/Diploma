@@ -8,7 +8,7 @@ app = FastAPI()
 def run_processor():
     try:
         script_path = os.path.join(os.path.dirname(__file__), "decrypt_and_process.py")
-        print(f"[INFO] Запуск: {script_path}")
+        print(f"launch: {script_path}")
         process = Popen(["python", script_path])
         return {"status": "processing started"}
     except Exception as e:
